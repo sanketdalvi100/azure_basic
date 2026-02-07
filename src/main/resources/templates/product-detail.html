@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+</head>
+<body>
+<img th:src="${product.imageUrl}"
+     alt="Product Image"
+     style="max-width: 300px; height: auto;" />
+
+<img src="https://saappdevnag.blob.core.windows.net/app-media/flexiReim.png"
+     alt="Product Image"
+     style="max-width:300px;height:auto;" />
+<h1 th:text="${product.name}">Product Name</h1>
+<p>₹ <span th:text="${product.price}">0</span></p>
+</body>
+</html>

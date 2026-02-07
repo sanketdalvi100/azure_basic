@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Products</h1>
+
+<table>
+    <tr th:each="p : ${products}">
+        <td th:text="${p.id}">1</td>
+        <td th:text="${p.name}">Name</td>
+        <td th:text="${p.price}">100</td>
+        <td>
+            <a th:href="@{'/product/' + ${p.id}}">View</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
