@@ -23,13 +23,13 @@ public class ProductDataInitializer {
         }
         List<Product> products = List.of(
                 new Product( "iPhone 15",  new BigDecimal("79999"),
-                        "https://images.unsplash.com/photo-1513708927688-890a98c6a77d"),
+                        "iphone16"),
 
                 new Product( "Samsung S24", new BigDecimal("74999"),
-                        "https://images.unsplash.com/photo-1513708927688-890a98c6a77d"),
+                        "samsungs24"),
 
                 new Product( "Pixel 9",  new BigDecimal("69999"),
-                        "https://images.unsplash.com/photo-1513708927688-890a98c6a77d")
+                        "pixel9")
         );
 
         productRepository.saveAll(products);

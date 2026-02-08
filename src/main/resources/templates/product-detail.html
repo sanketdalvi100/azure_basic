@@ -2,17 +2,142 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Details</title>
-</head>
-<body>
-<img th:src="${product.imageUrl}"
-     alt="Product Image"
-     style="max-width: 300px; height: auto;" />
+    <title th:text="${product.name} + ' | E-Com Store'">Product Details</title>
 
-<img src="https://saappdevnag.blob.core.windows.net/app-media/flexiReim.png"
-     alt="Product Image"
-     style="max-width:300px;height:auto;" />
-<h1 th:text="${product.name}">Product Name</h1>
-<p>₹ <span th:text="${product.price}">0</span></p>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 24px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 380px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.04);
+        }
+
+        .product-info h1 {
+            margin: 0 0 12px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: 600;
+            color: #2c7be5;
+            margin: 10px 0 24px;
+        }
+
+        .description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 28px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #2c7be5;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #1a5fc4;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ccc;
+        }
+
+        .btn-outline:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="product-card">
+
+        <div class="product-image">
+            <img th:src="${product.imageUrl}"
+                 alt="Product Image"
+                 onerror="this.src='/images/no-image.png'" />
+        </div>
+
+        <div class="product-info">
+            <h1 th:text="${product.name}">Product Name</h1>
+            <div class="price">₹ <span th:text="${product.price}">0</span></div>
+
+            <p class="description" th:text="${product.name}">
+                High quality product with premium build and excellent durability.
+            </p>
+
+            <div class="actions">
+                <button class="btn btn-primary">Add to Cart</button>
+                <button class="btn btn-outline">Buy Now</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

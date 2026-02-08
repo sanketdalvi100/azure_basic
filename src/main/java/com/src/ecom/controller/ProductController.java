@@ -1,5 +1,7 @@
 package com.src.ecom.controller;
 
+import com.src.ecom.model.Product;
+import com.src.ecom.service.AzureBlobService;
 import com.src.ecom.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
     private final ProductService service;
+    private final AzureBlobService azureBlobService;
 
-    public ProductController(ProductService service) {
+    public ProductController(ProductService service, AzureBlobService azureBlobService) {
         this.service = service;
+        this.azureBlobService = azureBlobService;
     }
 
     @GetMapping("/")
@@ -26,7 +30,10 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable String id, Model model) {
-        model.addAttribute("product", service.getProductById(id).get());
+        Product product = service.getProductById(id).get();
+        String imageUrl = azureBlobService.generateSasUrl(product.getImageUrl());
+        product.setImageUrl(imageUrl);
+        model.addAttribute("product", product);
         return "product-detail";
     }
 
