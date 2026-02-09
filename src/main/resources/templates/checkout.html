@@ -99,7 +99,7 @@
     <div class="card">
         <h2>Shipping Details</h2>
 
-        <form th:action="@{/checkout/place-order}" method="post">
+        <form th:action="@{/product/checkout/place-order}" method="post">
 
             <input type="hidden" name="productId" th:value="${product.id}" />
 
