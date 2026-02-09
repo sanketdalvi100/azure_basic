@@ -69,6 +69,7 @@ public class ProductController {
         dto.setCreatedAt(new Date());
         dto.setProductId(product.getId());
         dto.setPrice(product.getPrice());
+        dto.setProductName(product.getName());
         orderEventPublisher.publishOrder(dto);
         return "order-success";
     }

@@ -7,12 +7,13 @@ import java.util.Date;
 public class OrderDto {
 
     private String orderId;
-    private String customerId;
+    private String customerEmail;
     private String productId;
     private int quantity;
     private BigDecimal price;
     private String status;
     private Date createdAt;
+    private String productName;
 
     public OrderDto() {
         // Required for Jackson
@@ -20,19 +21,21 @@ public class OrderDto {
 
     public OrderDto(
             String orderId,
-            String customerId,
+            String customerEmail,
             String productId,
             int quantity,
             BigDecimal price,
             String status,
-            Date createdAt) {
+            Date createdAt,
+            String productName) {
         this.orderId = orderId;
-        this.customerId = customerId;
+        this.customerEmail = customerEmail;
         this.productId = productId;
         this.quantity = quantity;
         this.price = price;
         this.status = status;
         this.createdAt = createdAt;
+        this.productName = productName;
     }
 
     public String getOrderId() {
@@ -41,14 +44,6 @@ public class OrderDto {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 
     public String getProductId() {
@@ -89,6 +84,22 @@ public class OrderDto {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
 
