@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/product")
@@ -31,8 +32,9 @@ public class ProductController {
         return "product-list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     public String detail(@PathVariable String id, Model model) {
+        System.out.println("Detail : "+id);
         Product product = service.getProductById(id).get();
         String imageUrl = azureBlobService.generateSasUrl(product.getImageUrl());
         product.setImageUrl(imageUrl);
@@ -40,9 +42,11 @@ public class ProductController {
         return "product-detail";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/buy/{id}")
     public String buyNow(@PathVariable String id, Model model) {
+        System.out.println(id);
         Product product = service.getProductById(id).get();
+        System.out.println("buy now : "+product);
         model.addAttribute("product", product);
         return "checkout"; // thymeleaf page
     }
@@ -57,11 +61,12 @@ public class ProductController {
             @RequestParam String pincode,
             Model model
     ) throws Exception {
+        System.out.println(productId);
         Product product = service.getProductById(productId).get();
         model.addAttribute("product", product);
         model.addAttribute("customerName", name);
         OrderDto dto = new OrderDto();
-        dto.setCreatedAt(Instant.now());
+        dto.setCreatedAt(new Date());
         dto.setProductId(product.getId());
         dto.setPrice(product.getPrice());
         orderEventPublisher.publishOrder(dto);

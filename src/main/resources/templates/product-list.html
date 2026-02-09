@@ -105,7 +105,7 @@
             <td th:text="${p.name}">Product Name</td>
             <td class="price" th:text="${p.price}">100</td>
             <td>
-                <a class="btn-view" th:href="@{'/product/' + ${p.id}}">View</a>
+                <a class="btn-view" th:href="@{'/product/detail/' + ${p.id}}">View</a>
             </td>
         </tr>
         </tbody>

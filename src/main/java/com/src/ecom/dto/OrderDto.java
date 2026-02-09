@@ -2,6 +2,7 @@ package com.src.ecom.dto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Date;
 
 public class OrderDto {
 
@@ -11,7 +12,7 @@ public class OrderDto {
     private int quantity;
     private BigDecimal price;
     private String status;
-    private Instant createdAt;
+    private Date createdAt;
 
     public OrderDto() {
         // Required for Jackson
@@ -24,7 +25,7 @@ public class OrderDto {
             int quantity,
             BigDecimal price,
             String status,
-            Instant createdAt) {
+            Date createdAt) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.productId = productId;
@@ -82,11 +83,11 @@ public class OrderDto {
         this.status = status;
     }
 
-    public Instant getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 }
