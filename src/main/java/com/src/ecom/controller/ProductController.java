@@ -1,13 +1,15 @@
 package com.src.ecom.controller;
 
+import com.src.ecom.dto.OrderDto;
 import com.src.ecom.model.Product;
 import com.src.ecom.service.AzureBlobService;
+import com.src.ecom.service.OrderEventPublisher;
 import com.src.ecom.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
 
 @Controller
 @RequestMapping("/product")
@@ -15,10 +17,12 @@ public class ProductController {
 
     private final ProductService service;
     private final AzureBlobService azureBlobService;
+    private final OrderEventPublisher orderEventPublisher;
 
-    public ProductController(ProductService service, AzureBlobService azureBlobService) {
+    public ProductController(ProductService service, AzureBlobService azureBlobService, OrderEventPublisher orderEventPublisher) {
         this.service = service;
         this.azureBlobService = azureBlobService;
+        this.orderEventPublisher = orderEventPublisher;
     }
 
     @GetMapping("/")
@@ -35,5 +39,34 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product-detail";
     }
+
+    @PostMapping("/{id}")
+    public String buyNow(@PathVariable String id, Model model) {
+        Product product = service.getProductById(id).get();
+        model.addAttribute("product", product);
+        return "checkout"; // thymeleaf page
+    }
+
+    @PostMapping("/checkout/place-order")
+    public String placeOrder(
+            @RequestParam String productId,
+            @RequestParam String name,
+            @RequestParam String phone,
+            @RequestParam String address,
+            @RequestParam String city,
+            @RequestParam String pincode,
+            Model model
+    ) throws Exception {
+        Product product = service.getProductById(productId).get();
+        model.addAttribute("product", product);
+        model.addAttribute("customerName", name);
+        OrderDto dto = new OrderDto();
+        dto.setCreatedAt(Instant.now());
+        dto.setProductId(product.getId());
+        dto.setPrice(product.getPrice());
+        orderEventPublisher.publishOrder(dto);
+        return "order-success";
+    }
+
 
 }

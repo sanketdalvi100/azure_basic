@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Successful | E-Com Store</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .success-icon {
+            font-size: 64px;
+            color: #28a745;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .order-summary {
+            text-align: left;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .order-row strong {
+            font-weight: 600;
+        }
+
+        .product {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .product img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #2c7be5;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 12px 22px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            background: #2c7be5;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #1a5fc4;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <div class="success-icon">✔</div>
+
+        <h1>Order Placed Successfully</h1>
+
+        <p class="subtitle">
+            Thank you
+            <strong th:text="${customerName}">Customer</strong>!
+            Your order has been confirmed.
+        </p>
+
+        <div class="order-summary">
+
+            <div class="order-row">
+                <span>Order ID</span>
+                <strong>#ORD<span th:text="${orderId}">123456</span></strong>
+            </div>
+
+            <div class="order-row">
+                <span>Payment Mode</span>
+                <strong>Cash on Delivery</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Delivery Address</span>
+                <strong th:text="${address}">Address</strong>
+            </div>
+
+            <div class="product">
+                <img th:src="${product.imageUrl}"
+                     onerror="this.src='/images/no-image.png'" />
+
+                <div>
+                    <h4 th:text="${product.name}">Product Name</h4>
+                    <div class="price">
+                        ₹ <span th:text="${product.price}"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="/" class="btn">Continue Shopping</a>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout | E-Com Store</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .order-summary {
+            display: flex;
+            gap: 16px;
+        }
+
+        .order-summary img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c7be5;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            background: #2c7be5;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background: #1a5fc4;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT: SHIPPING DETAILS -->
+    <div class="card">
+        <h2>Shipping Details</h2>
+
+        <form th:action="@{/checkout/place-order}" method="post">
+
+            <input type="hidden" name="productId" th:value="${product.id}" />
+
+            <label>Full Name</label>
+            <input type="text" name="name" required />
+
+            <label>Mobile Number</label>
+            <input type="tel" name="phone" required />
+
+            <label>Address</label>
+            <textarea name="address" rows="4" required></textarea>
+
+            <label>City</label>
+            <input type="text" name="city" required />
+
+            <label>Pincode</label>
+            <input type="text" name="pincode" required />
+
+            <button class="btn" type="submit">
+                Place Order
+            </button>
+        </form>
+    </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="card">
+        <h2>Order Summary</h2>
+
+        <div class="order-summary">
+            <img th:src="${product.imageUrl}"
+                 onerror="this.src='/images/no-image.png'" />
+
+            <div>
+                <h4 th:text="${product.name}">Product Name</h4>
+                <div class="price">₹ <span th:text="${product.price}"></span></div>
+            </div>
+        </div>
+
+        <hr style="margin: 20px 0">
+
+        <p>Subtotal: <strong>₹ <span th:text="${product.price}"></span></strong></p>
+        <p>Delivery: <strong>FREE</strong></p>
+
+        <p style="font-size: 18px;">
+            Total: <strong>₹ <span th:text="${product.price}"></span></strong>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
